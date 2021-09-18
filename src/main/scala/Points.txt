@@ -1,0 +1,47 @@
+--> In FP, functions are the primary means of structuring code. The FP paradigm advocates using pure functions and stresses on immutable data structures.
+
+--> FP allows us to work at a higher level of abstraction. Abstraction is selective ignorance. The world we know of runs on abstractions.
+
+--> Abstractions are important in programming. FP is a declarative style of programming, similar to Structured Query Language (SQL).
+    Because it is declarative, we use it to tell what we want the computer to do, rather how it should do it.
+    We will also see how this style helps us stay away from writing common, repetitive boilerplate code.We just declare our intent.
+     The following Scala snippet [list.count( _ % 2 == 0 ) ]is declarative. It counts the number of even elements in the input list:
+
+--> Boilerplate code consists sections of the same code written again and again. For example, writing loops is boilerplate,
+    as is writing getters and setters for private class members.
+
+--> FP advocates staying away from any state modification. It gives us tools, so we don't worry about how to loop over a collection; instead,
+    we focus on what we need to do with each element of the collection.
+
+--> What are the benefits of an abstraction? We don't get bogged down into unnecessary details.Instead, we focus on the task at hand by applying
+     higher level programming abstractions. We simply focus on the task at hand (print each element of an array) and don't care about the mechanics of a for loop.
+     The functional version is more abstract.
+
+--> Higher order functions help avoid a lot of boilerplate : Unix shells allow us to express computations as pipelines.
+    Small programs called filters are piped together in unforeseen ways to ensure they work together. For example, refer to this code:
+    shell:$ seq 100 | paste -s -d '*' | bc , it does factorial kind of thing. So in scala, l.foldLeft(1)((r,c) => r * c)
+    The ability to supply a function brings a lot of flexibility to the table.
+
+--> Immutable and persistent data structures are thread safe by definition and hence very appealing for writing robust concurrent programs.
+    Writing concurrent programs using shared memory communication can very easily go wrong. The mutable state, e.g an array, could be inadvertently exposed.
+    For example, using a getter method, the array reference can be obtained by the outside world. Two or more threads could then try mutating it and
+    everything goes for a toss if we forget to put a mutex lock. It is too hard to make sure the state changes are controlled. If instead,
+    we know that a data structure does not change once it is created, reasoning becomes far easier. There is no need to acquire/release locks as a shared state never changes.
+
+
+--> Being immutable is the key for creating code that would be easier to reason about.
+
+--> Instead of writing a loop using a mutable loop variable, functional languages advocate(backer/promoter) recursion as an alternative
+    Scala gives us an option to ensure that tail call optimization (TCO) is applied. TCO rewrites a recursive tail call as a loop.
+    So in reality, no stack frames are used; this eliminates the possibility of a stack overflow error.
+
+--> The semantics of a programming language describes what syntactically valid programs mean, what they do.
+--> What if we have never mutated data? When we need to update, we could copy and update the data.
+    This is copy-on-write semantics: we make a new data structure every time a change happens to the original data structure.
+    list map (_ / 2) filter ( _ > 0 ) partition ( _ < 2 )
+    This solves the problem of the leaking getter. As data structures are immutable, they could be freely shared among different threads of execution.
+    The state is still shared, but just for reading. What happens when the input is too large? It would end up in a situation where too much of data is copied,
+    wouldn't it? Not really! There is a behind-the-scenes process called structural sharing. So most of the copying is avoided; however,
+    immutability semantics are still preserved.
+    To deal with excessive copying, we can resort to a feature called deferred processing, also known as, lazy collections.
+    A collection is lazy when all of its elements are not realized at the time of creation. Instead, elements are computed on demand.

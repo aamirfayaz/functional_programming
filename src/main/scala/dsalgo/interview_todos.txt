@@ -1,0 +1,4 @@
+// azilient tech asked; missing element in series, using sum solve this.
+// how to find middle element of linked list
+// coin change
+/ reverse string recursively

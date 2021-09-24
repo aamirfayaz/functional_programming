@@ -1,6 +1,6 @@
 package dsalgo.mathematical
 
-object FiboSeriesTillN extends App {
+object FiboSeriesTillN1 extends App {
 
   val n = 10
 
@@ -16,5 +16,30 @@ object FiboSeriesTillN extends App {
   println(fibo())
 
   def fibo = 1
+
+}
+
+object FiboSeriesTillN2 extends App {
+
+   def fibs(a: Int = 0, b: Int = 1): LazyList[Int] = {
+     LazyList.cons(a, fibs(b, a + b))
+   }
+  println(fibs().take(10).toList)
+}
+
+object FiboSeriesTillN3 extends App {
+
+  val fibs: LazyList[Int] = LazyList.iterate((0, 1)) { case (a, b) =>
+    (b, a + b)
+  }.map(_._1)
+  println(fibs.take(10).toList)
+}
+
+object FiboSeriesTillN4 extends App {
+
+  // check internals of scanLeft for Streams , you will understand the working
+   def fibs: LazyList[Int] = 0 #:: fibs.scanLeft(1)(_ + _)
+  println(fibs.take(10).toList)
+
 
 }

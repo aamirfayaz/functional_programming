@@ -1,10 +1,12 @@
 package dsalgo
 
-/*
+/**
+
 *
 *	*
 *	* *
 *	* * *
+
 */
 object Pattern1 extends App {
 
@@ -19,11 +21,13 @@ object Pattern1 extends App {
 }
 
 /**
+
  * *	*	*	*
  * *	*	*
  * *	*
  * *
  *
+
  * */
 object Pattern2 extends App {
 
@@ -36,7 +40,7 @@ object Pattern2 extends App {
     println()
   }
 }
-/*
+/**
          *
        * *
      * * *
@@ -59,7 +63,7 @@ object Pattern3 extends App {
   }
 }
 
-/*
+/**
 
 *	*	*	*	*
 	*	*	*	*
@@ -83,7 +87,7 @@ object Pattern4 extends App {
   }
 }
 
-/*
+/**
        *
     *	 *	*
 *   *	 *	*	 *
@@ -109,6 +113,85 @@ object Pattern5 extends App {
     } else {
       sp+=1
       st-=2
+    }
+    println()
+  }
+}
+
+/**
+ * * *   * * *
+ * *       * *
+ *           *
+ * *       * *
+ * * *   * * *
+ **/
+
+object Pattern6 extends App {
+
+  val n = 5
+  var st = n / 2 + 1
+  var sp = 1
+
+  for(i <- 1 to n) {
+
+    for(_ <- 1 to st) {
+      print("*\t")
+    }
+
+    for(_ <- 1 to sp) {
+      print("\t")
+    }
+
+    for(_ <- 1 to st) {
+      print("*\t")
+    }
+
+    if(i <= n / 2) {
+      sp+=2
+      st-=1
+    } else {
+      sp-=2
+      st+=1
+    }
+    println()
+  }
+
+
+}
+/**
+ *
+    *
+      *
+        *
+          *
+ **/
+object Pattern7 extends App {
+
+  val n = 5
+  for (i <- 1 to n) {
+    for (j <-  1 to n ) {
+      if(i == j) print("*")
+      else print("\t")
+    }
+    println()
+  }
+}
+
+/**
+Sample Output
+           *
+         *
+      *
+    *
+  *
+ **/
+object Pattern8 extends App {
+
+  val n = 5
+  for (i <- 1 to n) {
+    for (j <- i to n ) {
+      if(j == n) print("*")
+      else print("\t")
     }
     println()
   }

@@ -35,3 +35,30 @@ object AnyBaseToAnyBase extends App {
   val decimalToDestinationBase = DecimalToAnyBase.convert(sourceBaseToDecimal, destBase)
   println(decimalToDestinationBase)
 }
+
+/**
+ * There are four rules that need to be followed when adding two binary numbers. These are:
+
+0 + 0 = 0
+1 + 0 = 1
+1 + 1 = 10 (ans is 0 and carry forward 1)
+1 + 1 + 1 = 11 (answer is 1 and carry forward 1)
+ */
+
+object AnyBaseAddition extends App {
+
+}
+
+/**
+ *  Binary Subtraction
+0 – 0 = 0
+1 – 0 = 1
+1 – 1 = 0
+0 – 1 = 1 (Borrow 1 from the next higher order digit)
+
+Constraints:
+2 <= b <= 10
+0 <= n1 <= 256
+n1 <= n2 <= 256
+
+ */

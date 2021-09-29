@@ -114,6 +114,6 @@ object AnyBaseMultiplication extends App {
     }
   }
 
-  //println(multiply(2156, 74, 8))
+  println(multiply(2156, 74, 8))
   println(multiply(25, 12, 8))
 }

@@ -37,3 +37,4 @@ object NextGreatestElementToRight extends App {
   }
 
 }
+

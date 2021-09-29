@@ -52,13 +52,15 @@ object AnyBaseAddition extends App {
       case (_, _, _)          =>
         val d1 = num1 % 10
         val d2 = num2 % 10
-        val s  = (d1 + d2 + carry)
+        val s = (d1 + d2 + carry)
         sum(num1 / 10, num2 / 10, base, s / base, pow * 10, acc + (pow * (s % base)))
 
     }
   }
+
   println(sum("101".toInt, "111".toInt, 2))
   println(sum("100".toInt, "100".toInt, 2))
+  println(sum("27".toInt, "3".toInt, 8)) // ans:32
 }
 
 /**
@@ -74,3 +76,44 @@ object AnyBaseAddition extends App {
  * n1 <= n2 <= 256
  *
  */
+
+object AnyBaseSubstraction extends App {
+  def substraction(num1: Int, num2: Int, base: Int, carry: Int = 0, pow: Int = 1, acc: Int = 0): Int = {
+    (num1 <= 0, num2 <= 0, carry <= 0) match {
+      case (true, true, true) => acc
+      case (_, _, _)          =>
+        val d1 = num1 % 10
+        val d2 = (num2 % 10) - carry
+        val (next, c) = if (d2 < d1) {
+          ((d2 + base) - d1, 1)
+        } else {
+          (d2 - d1, 0)
+        }
+        substraction(num1 / 10, num2 / 10, base, c, pow * 10, acc + (pow * next))
+
+    }
+  }
+
+  println(substraction("100".toInt, "111".toInt, 2))
+  println(substraction("010".toInt, "101".toInt, 2))
+  println(substraction("3".toInt, "32".toInt, 8)) // ans:27
+}
+
+object AnyBaseMultiplication extends App {
+  def multiply(num1: Int, num2: Int, base: Int, sumPower: Int = 1, acc: Int = 0): Int = {
+    if (num2 <= 0) acc else {
+      //n1 is first numbers i.e num1's digits, n2 is each digit of num2
+      def mul(n1: Int, n2: Int, carry: Int = 0, pow: Int = 1, sum: Int = 0): Int = (n1 > 0, carry > 0) match {
+        case (false, false) => sum
+        case _              => {
+          val s = carry + ((n1 % 10) * n2)
+          mul(n1 / 10, n2, s / base, pow * 10, sum + (pow * (s % base)))
+        }
+      }
+      multiply(num1, num2 / 10, base, sumPower * 10, AnyBaseAddition.sum(acc, (mul(num1, num2 % 10) * sumPower), base))
+    }
+  }
+
+  //println(multiply(2156, 74, 8))
+  println(multiply(25, 12, 8))
+}

@@ -196,3 +196,23 @@ object Pattern8 extends App {
     println()
   }
 }
+
+/**
+
+ *       *
+   *   *
+     *
+  *    *
+*        *
+ **/
+
+object Pattern9 extends App {
+  val n = 5
+  for (i <- 1 to n) {
+    for (j <- 1 to n) {
+      if(j == i || (i + j) == n + 1) print("*\t")
+      else print("\t")
+    }
+    println()
+  }
+}

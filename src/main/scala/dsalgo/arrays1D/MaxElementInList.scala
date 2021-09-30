@@ -20,7 +20,7 @@ object MaxElementInList2 extends App {
   sealed case class Integ(value: Int)
 
   val l = List(Integ(2), Integ(4), Integ(12), Integ(1))
-  implicit val valueOrdering = Ordering.by { f: Integ => f.value }
+  implicit val valueOrdering: Ordering[Integ] = Ordering.by { f: Integ => f.value }
   println(max(l))
 }
 

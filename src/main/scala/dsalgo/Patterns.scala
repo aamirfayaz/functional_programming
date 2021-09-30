@@ -216,3 +216,45 @@ object Pattern9 extends App {
     println()
   }
 }
+
+/**
+
+/*
+       *
+   *        *
+ *             *
+    *      *
+       *
+*/
+
+ */
+object Pattern10 extends App {
+
+  val n = 5
+  var sp1 = n / 2
+  var sp2 = -1
+
+  for (i <- 1 to n) {
+
+    for(_ <- 1 to sp1) {
+      print("\t")
+    }
+    print("*\t")
+    if(sp2 > 0) {
+      for (_ <- 1 to sp2) {
+        print("\t")
+      }
+      print("*")
+    }
+
+    if(i <= n/2) {
+      sp1 -= 1
+      sp2  += 2
+    } else {
+      sp1 += 1
+      sp2 -= 2
+    }
+    println()
+  }
+
+}

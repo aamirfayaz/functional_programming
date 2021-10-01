@@ -11,7 +11,6 @@ package dsalgo
 object Pattern1 extends App {
 
   val n = 5
-
   for (i <- 1 to n) {
     for (_ <- 1 to i) {
       print("*" + " ")

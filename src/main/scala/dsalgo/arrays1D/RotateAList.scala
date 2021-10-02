@@ -27,6 +27,13 @@ METHOD 2 (Rotate one by one)
 METHOD 3 (A Juggling Algorithm) https://www.youtube.com/watch?v=utE_1ppU5DY
  Time complexity : O(n)
  Auxiliary Space : O(1)
+  Start:
+  int d = gcd(a.length, k)
+  for i = = to i < d
+  while(true) {
+   k
+  }
+  End
 ==================================================
 METHOD 4 (Using Reversal Algorithm)
   Time complexity : O(n)
@@ -35,6 +42,7 @@ METHOD 4 (Using Reversal Algorithm)
      reverse(arr, 0, n-k-1)
      reverse(arr, k, n-1)
      reverse(arr, 0, n-1
+ End
  */
 
 object Rotate1 extends App {

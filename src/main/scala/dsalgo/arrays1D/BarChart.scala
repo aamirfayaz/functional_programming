@@ -29,8 +29,3 @@ object BarChart extends App {
 
   println(buildBarChart(l, maxElement))
 }
-
-object jj extends App {
-  val str = "\t\t\t*\n*\t\t\t*\n*\t\t\t*"
-  println(str)
-}

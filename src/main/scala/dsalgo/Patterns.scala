@@ -258,3 +258,25 @@ object Pattern10 extends App {
   }
 
 }
+
+/**
+1
+2	3
+4	5	6
+7	8	9	10
+11	12	13	14	15
+*/
+
+object Pattern11 extends App {
+
+   def outer(i: Int, num:Int, acc: String = ""): String = i match {
+     case 0 => acc
+     case _ =>
+     def inner(j: Int, num: Int, acc: String=""): String = j match {
+       case 0 => outer(i + 1, num, acc + "\n")
+       case _ => inner(j - 1, num + 1, acc + s"$num\t")
+     }
+     inner(i + 1, num)
+   }
+  outer(5, 1)
+}

@@ -1,0 +1,1 @@
+(List(1,2).zip(List(3,4))).map{case (a, b) => a + b}

@@ -8,7 +8,7 @@ package dsalgo.arrays1D
  * output = 1 4 2 1 8 6
  */
 
-object SumTwoArrays extends App {
+object SumTwoLists extends App {
   val a1 =    List(9, 1, 0, 7, 9)
   val a2 =          List(8, 1, 9)
 

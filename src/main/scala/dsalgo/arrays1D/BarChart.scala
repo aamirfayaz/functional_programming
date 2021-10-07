@@ -1,7 +1,7 @@
 package dsalgo.arrays1D
 
 /**
- * if array is 5 2 0 1 6, output will be:
+  if array is 6 5 0 1 2, output will be:
  *
  * *
  * *

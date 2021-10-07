@@ -12,7 +12,7 @@ package dsalgo.arrays1D
 
 object BarChart extends App {
 
-  val l = List(5, 2, 0, 1, 6)
+  val l = List(6, 5, 0, 1, 2)
   val maxElement = MaxElementInList2.max(l)
 
   def buildBarChart(list: List[Int], max: Int = 0, acc: String = ""): String = max match {

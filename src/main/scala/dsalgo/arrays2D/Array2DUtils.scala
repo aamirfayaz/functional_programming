@@ -1,5 +1,6 @@
 package dsalgo.arrays2D
 
+
 object Array2DUtils {
 
   object Create2dArray {
@@ -20,10 +21,10 @@ object Array2DUtils {
 
   object Print2dArray {
 
-    def apply(a: Array[Array[Int]], rows: Int, cols: Int): Unit = {
+    def apply(a: Array[Array[Int]]): Unit = {
       println("\nElements of 2d array are:\n")
-      for (i <- 0 until rows) {
-        for (j <- 0 until cols) {
+      for (i <- a.indices) { // == i <- 0 until a.length
+        for (j <- a(0).indices) {
           print(a(i)(j) + " ")
         }
         println()

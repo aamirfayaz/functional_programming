@@ -1,1 +1,4 @@
-(List(1,2).zip(List(3,4))).map{case (a, b) => a + b}
+val l1 = List(1,2,3)
+val l2 = List(1,4,7)
+
+(l1 zip l2).map(Function.tupled(_ * _)).sum

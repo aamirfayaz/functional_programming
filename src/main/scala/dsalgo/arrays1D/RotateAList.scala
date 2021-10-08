@@ -1,6 +1,6 @@
 package dsalgo.arrays1D
 
-/**
+/*
 shift, k = 2
 1 2 3 4 5
 Right rotation: 4 5 1 2 5
@@ -28,11 +28,18 @@ METHOD 3 (A Juggling Algorithm) https://www.youtube.com/watch?v=utE_1ppU5DY
  Time complexity : O(n)
  Auxiliary Space : O(1)
   Start:
-  int d = gcd(a.length, k)
-  for i = = to i < d
+  int k = gcd(a.length, k)
+  for i = 0 to g {
+  j = i
+ tmp = A[i]
   while(true) {
-   k
+   d = (j + k) % n
+   if(d == i) break;
+   A[j] = A[d]
+   j = d
   }
+A[j] = tmp
+}
   End
 ==================================================
 METHOD 4 (Using Reversal Algorithm)
@@ -41,7 +48,7 @@ METHOD 4 (Using Reversal Algorithm)
   Start:
      reverse(arr, 0, n-k-1)
      reverse(arr, k, n-1)
-     reverse(arr, 0, n-1
+     reverse(arr, 0, n-1)
  End
  */
 
@@ -60,7 +67,7 @@ object Rotate2 extends App {
   val l = List(1,2,3,4,5)
   val shift = 2
   val size = l.length
-  val k = if(shift < 0) (size - shift) % size else shift % size
+  val k = if(shift < 0) (size + shift) % size else shift % size
   val result = l.drop(k) ::: l.take(k)
   println(result)
 

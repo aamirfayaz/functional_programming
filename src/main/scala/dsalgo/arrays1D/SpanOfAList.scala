@@ -18,6 +18,7 @@ object SpanOfAList1 extends App {
   require(l1.size > 1)
   val result1 = maxMin(l1.tail, l1.head, l1.head)
   assert(result1 == 8)
+
   val l2 = List(1, 20, 3, 4, 5, 0, 7, 8, 9)
   require(l2.size > 1)
   val result2 = maxMin(l2.tail, l2.head, l2.head)

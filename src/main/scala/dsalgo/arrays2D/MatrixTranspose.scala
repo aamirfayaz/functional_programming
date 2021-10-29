@@ -13,9 +13,6 @@ package dsalgo.arrays2D
 
 object MatrixTranspose extends App {
 
-  type Row = List[Int]
-  type Matrix = List[Row]
-
   def transpose(m: Matrix): Matrix = {
     if(m.head.isEmpty) Nil
     else m.map(_.head) :: transpose(m.map(_.tail))

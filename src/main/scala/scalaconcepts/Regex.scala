@@ -43,14 +43,15 @@ object Regex2 extends App {
   println(s"Matches: $matches")
 }
 
+//using pattern matching
 object Regex3 extends App {
 
   val testAddress: String = "123 bangalore st."
-  val isAddress = "([0-9]+) ([a-z]+) (st|blvd)\\.".r
+  val isAddress: Regex = "([0-9]+) ([a-z]+) (st|blvd)\\.".r
 
   testAddress match {
     case isAddress(number, streetName, streetType) =>
       println(s"streetName: $streetName $streetType , at: $number")
-      //assert(number.toInt == 123, number)
+      assert(number.toInt == 123, number)
   }
 }

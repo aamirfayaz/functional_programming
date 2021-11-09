@@ -126,28 +126,30 @@ object CW7a extends App {
 
 
   }
-
+   var c = 0
   def enum_tours(dim: Int, path: Path) : List[Path] = {
-    val moves = legal_moves(dim, path, path.head)
-    val tours = for (n <- moves) yield enum_tours(dim, n :: path)
+    val moves: List[(Int, Int)] = legal_moves(dim, path, path.head)
+    val tours: List[List[Path]] = for (n <- moves) yield enum_tours(dim, n :: path)
     if (path.size == dim*dim) {
       List(path)
     }
-    else if(moves.size == 0) Nil
+    else if(moves.isEmpty) Nil
     else {
       tours.flatten
     }
   }
 
   val paths = enum_tours(5, List((1, 1)))
-  println(paths.head)
+  println(paths)
+  println(c)
+/*  println(paths.head)
   val a:Matrix = Array.ofDim(5,5)
   val m: Matrix = buildChessPath(paths.head.reverse, a)
 
   for (elem <- m) {
     print(elem.mkString(" "))
     println()
-  }
+  }*/
 
 
 

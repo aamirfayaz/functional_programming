@@ -5,8 +5,9 @@ import scala.annotation.tailrec
 object Assignment extends App {
 
   val chessBoard: Array[Array[Int]] = Array.ofDim(10, 10)
+  val chessBoardLength = chessBoard.length
 
-  def isLegal(chessBoardLength: Int, x: Int, y: Int) = {
+  def isLegal(x: Int, y: Int) = {
     x >= 0 && x <= chessBoardLength - 1 && y >= 0 && y <= chessBoardLength - 1 && chessBoard(x)(y) == 0
   }
 
@@ -16,7 +17,7 @@ object Assignment extends App {
     def legalMoves(moves: List[(Int, Int)], possibilities: List[(Int, Int)] = Nil): List[(Int, Int)] = moves match {
       case Nil          => possibilities
       case head :: tail =>
-        if (isLegal(chessBoard.length, x + head._1, y + head._2)) legalMoves(tail, (x + head._1, y + head._2) :: possibilities)
+        if (isLegal(x + head._1, y + head._2)) legalMoves(tail, (x + head._1, y + head._2) :: possibilities)
         else legalMoves(tail, possibilities)
     }
     legalMoves(moves)
@@ -52,7 +53,7 @@ object Assignment extends App {
   }
 
   val initialPosition = (0, 0) // this can be modified for where to start
-  chessBoard(0)(0) = 1
-  tour(0, 0, 2, 1)
+  chessBoard(initialPosition._1)(initialPosition._2) = 1
+  tour(initialPosition._1, initialPosition._2, 2, 1)
 
 }

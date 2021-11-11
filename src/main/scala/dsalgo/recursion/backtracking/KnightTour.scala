@@ -139,7 +139,7 @@ object CW7a extends App {
     }
   }
 
-  val paths = enum_tours(5, List((1, 1)))
+  val paths = enum_tours(6, List((1, 1)))
   println(paths)
   println(c)
 /*  println(paths.head)

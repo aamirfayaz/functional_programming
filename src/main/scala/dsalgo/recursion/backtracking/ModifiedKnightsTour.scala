@@ -2,7 +2,7 @@ package dsalgo.recursion.backtracking
 
 import scala.annotation.tailrec
 
-object TrueCallerAssign extends App {
+object ModifiedKnightsTour extends App {
 
   val chessBoard: Array[Array[Int]] = Array.ofDim(10, 10)
 

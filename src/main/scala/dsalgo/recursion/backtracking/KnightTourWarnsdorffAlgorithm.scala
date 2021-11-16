@@ -52,7 +52,7 @@ object Assignment extends App {
     }
   }
 
-  val initialPosition = (0, 0) // this can be modified for where to start
+  val initialPosition = (1,0) // this can be modified for where to start
   chessBoard(initialPosition._1)(initialPosition._2) = 1
   tour(initialPosition._1, initialPosition._2, 2, 1)
 

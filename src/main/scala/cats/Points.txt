@@ -41,10 +41,10 @@
      the implicit scope.
 
  --> The implicit scope which roughly consists of:
-     • local or inherited definitions;
-     • imported definitions;
+     • local or inherited definitions (in trait by inheriting them);
+     • imported definitions (in objects);
      • definitions in the companion object of the type class or the parameter
-       type (in this case JsonWriter or String);
+       type (in this case JsonWriter or String); --> local scope
 
 --> If the compiler sees multiple candidate type class definitions,
     it fails with an ambiguous implicit values error.
@@ -67,6 +67,10 @@
 --> The power of type classes and implicits lies in the compiler’s ability to combine
     implicit definitions when searching for candidate instances. This is sometimes
     known as type class composition.
+
+ --> By using type composition, implicit resolution becomes a search through the space
+     of possible combinations of implicit definition unless we find a combination that
+     constructs a type class instance of the correct overall type.  
 
 --> implicit methods with non‐implicit parameters form a different
     Scala pattern called an implicit conversion. Implicit conversion is an

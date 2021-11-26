@@ -10,8 +10,8 @@ case class Num(str: String) extends Ordered[Num] {
 }
 
 
-val l: List[Num] = List(1,34,3,98,9,76,45,4).map(x => Num(x.toString))
+/*val l: List[Num] = List(1,34,3,98,9,76,45,4).map(x => Num(x.toString))
 val x = l.sorted
 val str = ""
-x.foldLeft(str){(a, b) => a.concat(b.str)}
+x.foldLeft(str){(a, b) => a.concat(b.str)}*/
 

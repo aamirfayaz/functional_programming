@@ -1,6 +1,6 @@
-package scalaconcepts
+package scalaconcepts.leobenkel
 
-import Animal._
+import scalaconcepts.leobenkel.Animal._
 
 case class Animal(numberOfLegs: Int) {
   //can access its companion objects private methods

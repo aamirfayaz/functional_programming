@@ -1,4 +1,4 @@
-package scalaconcepts
+package scalaconcepts.leobenkel
 
 object FoldLeftPartialFunction extends App {
 

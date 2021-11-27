@@ -1,4 +1,4 @@
-package scalaconcepts
+package scalaconcepts.leobenkel
 
 class Person(
               // 'val' to make the fields "public"

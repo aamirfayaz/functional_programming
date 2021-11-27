@@ -1,9 +1,8 @@
-package scalaconcepts
+package scalaconcepts.leobenkel
 
 object ListParallel extends App {
 
-   import scala.collection.parallel.CollectionConverters._
-
+  import scala.collection.parallel.CollectionConverters._
 
 
   val from: Int = 0

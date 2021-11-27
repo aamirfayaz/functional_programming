@@ -1,7 +1,8 @@
-package scalaconcepts
-import scala.util.matching.Regex
+package scalaconcepts.leobenkel
+
 import java.util.regex.{Matcher, Pattern}
 import scala.util.Try
+import scala.util.matching.Regex
 
 /**
  * The example Regex1 is a simple case to check for a match.

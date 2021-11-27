@@ -1,4 +1,4 @@
-package scalaconcepts
+package scalaconcepts.leobenkel
 
 object LiftMethods extends App {
 

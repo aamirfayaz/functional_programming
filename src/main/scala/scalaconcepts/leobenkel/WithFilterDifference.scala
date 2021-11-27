@@ -1,6 +1,4 @@
-package scalaconcepts
-
-import scalaconcepts.WithFilterDifference1.result
+package scalaconcepts.leobenkel
 
 object WithFilterDifference1 extends App {
 

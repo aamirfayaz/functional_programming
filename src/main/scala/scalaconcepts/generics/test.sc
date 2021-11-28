@@ -1,7 +1,4 @@
-trait Combine2[-T] {
-  //def item: T
-  def combineWith[B <: T](t: B):B
-}
+
 
 trait Combine[+T] {
   def item: T

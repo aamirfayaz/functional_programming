@@ -3,7 +3,7 @@ package dsalgo.strings
 import scala.annotation.tailrec
 
 object PalindromicSubStrings extends App {
-
+//O(n * n)
 
     /*
        abc = a, b, c, ab, bc, abc

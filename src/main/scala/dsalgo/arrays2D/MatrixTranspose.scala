@@ -10,7 +10,6 @@ package dsalgo.arrays2D
  * 2 5 8
  * 3 6 9
  */
-
 object MatrixTranspose extends App {
 
   def transpose(m: Matrix): Matrix = {

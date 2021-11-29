@@ -1,5 +1,7 @@
 package dsalgo.strings
 
+import scala.annotation.tailrec
+
 /**
  * Input: aaabbccccdee
  * output: a3b2c4de2
@@ -7,6 +9,7 @@ package dsalgo.strings
 
 object CompressString extends App {
 
+   @tailrec
    def compression(s: String, acc: String = ""):String = {
        if(s.isEmpty) acc else {
          val c = s.charAt(0)

@@ -2,7 +2,6 @@ object GfG {
   def apply(x: Double) = x / 5
 
   def unapply(z: Double): Option[Double] = {
-
     if (z % 5 == 0) Some(z / 5) else None
   }
 }

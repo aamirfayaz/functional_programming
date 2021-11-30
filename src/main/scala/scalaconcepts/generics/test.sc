@@ -1,4 +1,10 @@
 
+trait Box[-T] {
+
+  def add(t: T):Unit = println()
+  def get[B <: T]:B
+}
+
 
 trait Combine[+T] {
   def item: T
@@ -13,6 +19,4 @@ case class CombineInt(x: Int) extends Combine[Int] {
 val c1 = CombineInt(10)
 c1.combineWith(20)
 c1.item
-
-
 

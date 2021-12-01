@@ -6,7 +6,7 @@ object GfG {
   }
 }
 
-val x = GfG(25)
+val x = GfG(391)
 
 // Applying pattern matching
 x match {
@@ -16,4 +16,12 @@ x match {
   case _      => println("Can't be evaluated")
 
 }
+
+/**
+ * case _ works only if you have None in unapply method,
+ * if you don't have None in unapply method and you only
+ * return Some then this case _ won't get executed,
+ * also if we have None in unapply method and no case _ here
+ * then we will get MatchError
+ */
 

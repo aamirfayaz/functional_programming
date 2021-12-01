@@ -16,7 +16,7 @@ class Parking[A](val place: A){
 val parking = new Parking(new Car())
 
 parking.dosomething(new Parking(new Bicycle())) //
-//parking.dosomething(new Parking[Jeep](new Jeep())), won't work
+//parking.dosomething(new Parking[Jeep](new Jeep())), won't work only
 //if doSomething(p1: Parking[Vehicle])so we use site-variance
 
 //parking.dosomething(new Parking(new AnyRef()))

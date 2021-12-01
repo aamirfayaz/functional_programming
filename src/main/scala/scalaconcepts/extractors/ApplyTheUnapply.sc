@@ -54,3 +54,10 @@ val DateTime(Date(y,mo,d), Time(h,m,s)) = LocalDateTime.now()
 
 val dt @ DateTime(date @ Date(y,m,d), time @ Time(h, mi, s)) = LocalDateTime.now()
 
+object DateTimeSeq {
+
+    def unapplySeq(dT: LocalDateTime):Option[Seq[Int]] = {
+      Seq(dT.getY)
+    }
+}
+

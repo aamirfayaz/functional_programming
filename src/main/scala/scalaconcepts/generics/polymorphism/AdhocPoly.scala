@@ -3,6 +3,7 @@ package scalaconcepts.generics.polymorphism
 object AdhocPoly extends App {
 
   /**
+    https://dev.to/jmcclell/inheritance-vs-generics-vs-typeclasses-in-scala-20op
     Because of runtime type erasure, the JVM, at runtime, can't tell the difference between List[Int] and List[Double]
     so we can't use overloading to implement our mean function.
     It's also a bit repetitious/monotonous to implement the function over and over again for every type we care about.
@@ -14,8 +15,9 @@ object AdhocPoly extends App {
 }
 
 /**
- * This is the classic OOP solution to the problem of ad-hoc polymorphism
+ * This is the classic OOP solution to the problem of ad-hoc polymorphism-adapter pattern
  */
+/**
 trait NumberLike[A] {
    def get: A
    def plus(y: NumberLike[A]): NumberLike[A]
@@ -25,7 +27,7 @@ trait NumberLike[A] {
 case class NumberLikeDouble(x: Double) extends NumberLike[Double] {
   override def get: Double = x
 
-  override def plus(y: NumberLike[Double]): NumberLike[Double] = NumberLikeDouble(x + y.get)
+  override def plus(y: NumberLike[Double]): NumberLike[Double] = NumberLikeDouble(x + y.x)
 
   override def divide(y: Int): NumberLike[Double] = NumberLikeDouble(x / y)
 }
@@ -48,4 +50,6 @@ object NumberLikeOOPs extends App {
   // to a NumberLike[Int] before the mean function can use it
   val l: List[NumberLikeDouble] = List(1.2,2.9,3.0).map(NumberLikeDouble)
   println(mean[Double](l).get)
-}
+}*/
+
+//type classes to the rescue

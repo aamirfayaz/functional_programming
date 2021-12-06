@@ -68,7 +68,7 @@ speak(new Dog())
 /**
  * Subtype polymorphism allows us to reduce boiler-plate
  * Parametric polymorphism allows us to reduce boiler-plate by writing code that can work uniformly
-   over a range of types by using type parameters to templatize the code
+   over a range of types by using type parameters
    e.g n Array type can work for any type T because its implementation doesn't depend on any type-specific behavior -
    the Array implementation is uniform across all types.
 

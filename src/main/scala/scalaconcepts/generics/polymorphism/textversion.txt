@@ -1,0 +1,271 @@
+Inheritance vs Generics vs TypeClasses in Scala
+#
+scala
+#
+typeclass
+#
+typeclasses
+#
+polymorphism
+Recently, someone asked a rather innocuous question on a programming forum:
+
+What is the difference between generics and type classes [in Scala]?
+
+I spent some time thinking about that question - trying to get at the heart of where the confusion may lie. I concluded that it was a misunderstanding with regard to the various types of polymorphism we generally have available to us in Scala. For this question, in particular, it's the difference between parametric polymorphism (generics) and ad-hoc polymorphism (type classes).
+
+What is Polymorphism?
+The idea behind polymorphism is always the same: we are trying to increase code re-use by writing code in a more generic fashion. That is to say, in a higher level of abstraction.
+
+There are three main forms of polymorphism: [1]
+
+Subtype Polymorphism (Inheritance)
+
+when a name denotes instances of many different classes related by some common superclass
+
+Parametric Polymorphism (Generics)
+
+when one or more types are not specified by name but by abstract symbols that can represent any type
+
+Ad-Hoc Polymorphism (Type Classes)
+
+defines a common interface for an arbitrary set of individually specified types
+
+In order to really understand how these forms are different in practice, we need to get a sense for what types of problems each one solves and what their limitations are.
+
+Luckily, this can be done with only a few examples.
+
+Subtype Polymorphism (Inheritance)
+subtyping allows a function to be written to take an object of a certain type T, but also work correctly, if passed an object that belongs to a type S that is a subtype of T (according to the Liskov substitution principle) [2]
+
+In other words, subtyping allows a function to accept a value of a certain type T, but also accept objects derived from type T, ie: any type which extends T.
+
+This is the one we're most familiar with in OOP.
+
+Example without subtype polymorphism:
+class Cat {
+  val meow = "meow"
+}
+
+class Dog {
+  val bark = "woof!"
+}
+
+def dogSpeak(d: Dog) = println(d.bark)
+def catSpeak(c: Cat) = println(c.meow)
+Here, it's obvious we would like to define a singular behavior, that of the ability to speak. But, without any form of polymorphism, we don't have a way of creating a singular, type safe implementation.
+
+That is to say, we could do something like:
+
+
+def speak(v: Any) = v match {
+  case v: Dog => v.bark
+  case c: Cat => c.meow
+}
+But, we lose static type checking because all type checking is done at runtime here. Not only that, but we also have to continually modify this method as we add more animals that can speak to our program.
+
+Clearly, there must be a better way!
+
+Example with subtype polymorphism:
+trait Animal {
+  def sound: String
+}
+
+class Cat extends Animal {
+  val sound: String = "meow"
+}
+
+class Dog extends Animal {
+  val sound: String = "woof!"
+}
+
+def speak(a: Animal) = println(a.sound)
+While this is a very basic example, we can see that using inheritance via subtype polymorphism, we are able to write code at a higher level of abstraction by using the most generic type in the type hierarchy that satisfies our needs. In this case, we know that all Animals can make a sound, so we can write a single speak method which will now work for any Animal.
+
+Subtype polymorphism allows us to reduce boiler-plate by treating entire groups of types the same based on their position in a type hierarchy. Importantly, it allows us to do this despite having disparate implementations in the invoked methods between the types in the hierarchy. That is to say, both a Dog and a Cat can make a sound because all Animals make sounds, but a Cat's sound is not the same as a Dog's sound. The implementations are not uniform across types in the hierarchy.
+
+Parametric Polymorphism (Generics)
+Parametric polymorphism allows a function or a data type to be written generically, so that it can handle values uniformly without depending on their type [3]
+
+Subtype polymorphism gets us pretty far, but what about when we want to implement something such as a custom Array data type?
+
+trait Array {
+  def set(index: Int, item: ???): Array
+  def get(index: Int): ???
+}
+What type can we use in place of ???? Well, we could do what Java did pre-generics and use the top type. In Java, the closest thing to a top type is Object, and in Scala we have a true top type of Any. In other words, every type is a subtype of type Any in Scala. So, we could do
+
+trait Array {
+  def set(index: Int, item: Any): Array
+  def get(index: Int): Any
+}
+Note: In Java, we don't have a true top type because Java has the concept of primitives such as int, float, etc. which are not objects and are, thus, not part of any type hierarchy.
+
+But, of course, this means that we would have to do a bunch of runtime type checking and casting to actually make our custom Array type useful, since everything we put into it will come out as type Any, which is not a very useful type.
+
+val a: String = "hello"
+val b: String = "world"
+
+val strings = new Array() // Pretend this is implemented and not just a trait
+strings.set(0, a) // a goes in as a String
+strings.set(1, b) // b goes in as a String
+
+println(strings.get(0) + strings.get(1)) // strings.get(0) and strings.get(1) are both of type Any
+ // ERROR!
+ // type mismatch;
+ //   found   : Any
+ //   required: String
+If we want to maintain static type checking and avoid runtime casts, we're stuck creating a specialized version of our custom Array type for each type we want to store in it.
+
+trait StringArray {
+  def set(index: Int, item: String): StringArray
+  def get(index: Int): String
+}
+
+trait IntArray {
+  def set(index: Int, item: Int): IntArray
+  def get(index: Int): Int
+}
+This obviously gets out of hand quickly. Furthermore, even though we aren't showing the implementation of our set or get methods, it's probably obvious to you that we don't actually ever need to invoke any methods on our item parameter or access any of its fields. Our Array type doesn't actually care what type item is, it's just storing a reference to it paired with an index value to look it up later. In other words, our Array can handle these values uniformly. We could take the implementations of set and get for String and for Int and just swap the types out and they would otherwise remain the same between StringArrayand IntArray. This is the area where parametric polymorphism shines, as it allows us to templatize our code.
+
+trait Array[T] {
+   def set(index: Int, item: T): Array
+   def get(index: Int): T
+}
+
+val a: String = "hello"
+val b: String = "world"
+
+val strings: Array[String] = new Array() // Again, pretend it's implemented
+strings.set(0, a) // a goes in as a String
+strings.set(1, b) // b goes in as a String
+
+println(strings.get(0) + strings.get(1)) // both strings.get(0) and strings.get(1) are of type String!
+
+// We can also parameterize functions
+def first[T](items: Array[T]): T = items.get(1)
+Parametric polymorphism allows us to reduce boiler-plate by writing code that can work uniformly over a range of types by using type parameters to templatize the code. An Array type can work for any type T because its implementation doesn't depend on any type-specific behavior - the Array implementation is uniform across all types.
+
+Ad-hoc Polymorphism (Type Classes)
+the term ad hoc polymorphism [refers] to polymorphic functions that can be applied to arguments of different types, but that behave differently depending on the type of the argument to which they are applied [4]
+
+What if we need to be able to create methods/functions whose parameters can be of different unrelated types (with regard to subtyping) and where the implementation is also type specific, ie: not uniform?
+
+Let's say you want to write a function that, given a list of numbers, will return the arithmetic mean of the numbers:
+Note: I am using examples lifted from an excellent blog post about the subject from Daniel Westheide Why? Because his example is awesome, and you should read his post to understand Type Classes better than my brief introduction here.
+
+To start, let's just implement for Double
+
+def mean(xs: List[Double]: Double = xs.reduce(_ + _) / xs.size
+Nice! ...but what about lists of Int? Surely we want to be able to take the average of other numeric types without having to convert each one to a double first.
+
+def mean(xs: List[Int]: Double = xs.reduce(_ + _) / xs.size
+Okay, cool. Thanks to Java's overloading capability, we now we have mean implemented for both Double and Int, right?
+
+Runtime Type Erasure makes Overloading difficult at times
+def mean(xs: List[Double]): Double = xs.reduce(_ + _) / xs.size
+def mean(xs: List[Int]): Double = xs.reduce(_ + _) / xs.size
+
+ // ERROOR:
+ // double definition:
+ // def mean(xs: List[Double]): Double at line 1 and
+ // def mean(xs: List[Int]): Double at line 2
+ // have same type after erasure: (xs: List)Double
+ // def mean(xs: List[Int]): Double = xs.reduce(_ + _) / xs.size
+ // ^
+ // Compilation Failed
+Because of runtime type erasure, the JVM, at runtime, can't tell the difference between List[Int] and List[Double] so we can't use overloading to implement our mean function - at least not easily. It's also a bit repetitious to implement the function over and over again for every type we care about.
+
+Subtype polymorphism to the rescue?
+In Scala, Int and Double do not share a type hierarchy other than both extending from AnyVal. If only the numeric types extended some kind of Numeric trait!
+
+What if they did?
+
+def mean(xs: List[Numeric]): Numeric = ???
+Daniel's advice?
+
+Thankfully, in this case there is no such common trait, so we aren’t tempted to walk this road at all. However, in other cases, that might very well be the case – and still be a bad idea. Not only do we drop previously available type information, we also close our API against future extensions to types whose sources we don’t control: We cannot make some new number type coming from a third party extend the [Numeric] trait.
+
+He's right. If we key our mean function on the shared super type, Numeric, we widen the type of our input to its super type upon output meaning we lose type information. In other words, things go in as specific types Int, Double, etc. but come out as the more generic type Numeric.
+
+Furthermore, let's say we import a 3rd party library such as Joda Time and wish to use our mean function for its Duration type - which we can probably all agree fits into the Numeric definition. We're out of luck! There's no way to make a 3rd party's numeric type extend our Numeric trait!
+
+What about the classic Adapter Pattern?
+trait NumberLike[A] {
+  def get: A
+  def plus(y: NumberLike[A]): NumberLike[A]
+  def divide(y: Int): NumberLike[A]
+}
+
+case class NumberLikeDouble(x: Double) extends NumberLike[Double] {
+  def get: Double = x
+  def plus(y: NumberLike[Double]) = NumberLikeDouble(x + y.get)
+  def divide(y: Int) = NumberLikeDouble(x / y)
+}
+
+case class NumberLikeInt(x: Int) extends NumberLike[Int] {
+  def get: Int = x
+  def plus(y: NumberLike[Int]) = NumberLikeInt(x + y.get)
+  def divide(y: Int) = NumberLikeInt(x / y)
+}
+
+def mean[A](xs: List[NumberLike[A]]): NumberLike[A] = xs.reduce(_.plus(_)).divide(xs.size)
+This is the classic OOP solution to the problem of ad-hoc polymorphism. On the upside, we regain full compile-time type safety and extensibility. The downside, however, is the performance hit of having to convert every Int in a List[Int] to a NumberLike[Int] before the mean function can use it. So, the larger the list of numbers we wish to pass to mean, the more adapter instances we must create. Type classes solve this problem, as well as the other problems we've encountered thus far as we look for a solution for ad-hoc polymorphism.
+
+So what is a Type Class, then?
+A type class C defines some behaviour in the form of operations that must be supported by a type T for it to be a member of type class C. Whether the type T is a member of the type class C is not inherent in the type. Rather, any developer can declare that a type is a member of a type class simply by providing implementations of the operations the type must support. Now, once T is made a member of the type class C, functions that have constrained one or more of their parameters to be members of C can be called with arguments of type T.
+
+Type classes allow ad-hoc and retroactive polymorphism. Code that relies on type classes is open to extension without the need to create adapter objects.
+
+In other words, we're providing polymorphism over an interface without using inheritance, but we maintain the ability to have different implementations across types for the set of required of operations defined by our type class interface. Furthermore, we maintain the ability to easily extend the type class membership at-will, ie: in an ad-hoc fashion.
+
+Note: In languages where type classes are built-in as a language feature, they save us from boiler plate code in similar ways to how the other two forms of polymorphism do. However, in Scala, we do not have type classes built into the language and, instead, must encode them using the powerful type system. We end up writing similar amounts of code to that of the adapter pattern, but it ends up being a much cleaner, more runtime efficient implementation. We also must make use of parametric polymorphism (generics) as well as Scala's implicit functionality. These two things are the key to being able to encode type classes in Scala, as seen below.
+
+So, first off, to define our type class, we need a Trait to represent it
+
+trait NumberLike[T] {
+  def plus(x: T, y: T): T
+  def divide(x: T, y: Int): T
+}
+This defines the interface that a type must implement in order to be a member of our type class. In essence, this is the type class.
+
+We can then add some default members to the type class
+
+object NumberLike {
+
+  implicit object NumberLikeDouble extends NumberLike[Double] {
+    def plus(x: Double, y: Double): Double = x + y
+    def divide(x: Double, y: Int): Double = x / y
+  }
+
+  implicit object NumberLikeInt extends NumberLike[Int] {
+    def plus(x: Int, y: Int): Int = x + y
+    def divide(x: Int, y: Int): Int = x / y
+   }
+If NumberLike is the type class, then NumberLikeDouble and NumberLikeInt are both type class members . Well, at least most directly. What they serve to do is allow Double and Int to become members of the type class by providing the type-specific implementations of the type class interface's API. That is to say, plus is defined separately for both Double and Int via NumberLikeDouble and NumberLikeInt much like it would be if Int and Double both extended from a Numeric super type and each implemented plus directly. With type classes, we achieve this without the need for the subtype relationship!
+
+It's important to note that these objects are defined as implicit. This is the key to making type classes encodable in Scala, by allowing these objects to become implicitly available under the right circumstances. Understanding how implicits work in Scala is key to understanding how our encoding of type classes in Scala works, but that's a much larger topic than I am covering here.
+
+Once we have our type class and its members defined, we can write our mean method utilizing the ad-hoc polymorphism we just created:
+
+def mean[T](xs: List[T])(implicit ev: NumberLike[T]): T = ev.divide(xs.reduce(ev.plus(_, _)), xs.size)
+Now when we call mean with a List[Int], T will be bound to Int and thus the compiler will attempt to locate an implicit NumberLike[Int] to automatically pass into the second argument list. If an instance of NumberLike[T] can't be found for the type T we specify, then we know we have bound T to a type which does not satisfy our type class interface and, thus, is not a member of the type class. If we go back to our subtype polymorphism example, this would be like passing in a value to speak which does not extend Animal.
+
+In this case, we're passing in List[Int] so T is bound to Int and we have defined an implicit NumberLike[Int] object, NumberLikeInt, so we know Int satisfies the type class interface and we are able to implement our mean functionality using the plus and divide methods concretely defined within NumberLikeInt.
+
+Extensibility
+We can also easily demonstrate that we are able to arbitrarily add support for more types to mean by simply adding more members to our NumberLike type class.
+
+object JodaImplicits {
+  implicit object NumberLikeDuration extends NumberLike[Duration] {
+    def plus(x: Duration, y: Duration): Duration = x.plus(y)
+    def divide(x: Duration, y: Int): Duration = Duration.millis(x.getMillis / y)
+  }
+}
+This is where type classes shine. If we have many functions that accept NumberLike as a parameter, we automatically expand their utility every time we add a new member to the type class. And, amazingly, we can add any type to our type class even if we don't control the source code for the type!
+
+Type classes allow us to take types which are related in some arbitrary way and provide a common interface to identify them by even if they are not related by subtyping. In our case, the arbitrary relationship we defined was that of being numeric, or, NumberLike. We were able to ascertain that any NumberLike value must be able to support addition and division, and so that became the interface defined in our NumberLike type class via the plus and divide methods. I'm sure you can imagine other methods that would be appropriate for NumberLike values, eg: multiply.
+
+Conclusion
+I hope this helps some people who are having issues with the three forms of polymorphism in Scala - in particular, type classes.
+
+As for the original question, it should be noted that we must make use of parametric polymorphism (generics) in order to encode Type Classes in Scala. That does not mean that they are the same thing.

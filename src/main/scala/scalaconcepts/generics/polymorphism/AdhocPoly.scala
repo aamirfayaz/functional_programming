@@ -53,3 +53,65 @@ object NumberLikeOOPs extends App {
 }*/
 
 //type classes to the rescue
+trait NumberLike[T] {
+  def plus(x: T, y: T): T
+  def divide(x: T, y: Int): T
+}
+
+object NumberLikeInstances {
+  implicit object NumberLikeInt extends NumberLike[Int] {
+    def plus(x: Int, y: Int): Int = x + y
+    def divide(x: Int, y: Int): Int = x / y
+  }
+
+  //extensibility, we added plus and divide method to Double/Int class
+  implicit object NumberLikeDouble extends NumberLike[Double] {
+    def plus(x: Double, y: Double): Double = x + y
+    def divide(x: Double, y: Int): Double = x / y
+  }
+}
+
+object NumberLikeInterface {
+  def mean[T](list: List[T])(implicit ev: NumberLike[T]) = {
+    ev.divide(list.reduce{(a, b) => ev.plus(a,b)}, list.size)
+  }
+}
+
+object NumberLikeSyntax {
+  implicit class NumberLikeOps[T](list: List[T]) {
+    def mean(implicit ev: NumberLike[T]):T = {
+      ev.divide(list.reduce{(a, b) => ev.plus(a,b)}, list.size)
+    }
+  }
+}
+
+object TestNumberLike extends App {
+  val list1: List[Int] = List(1,2,3,4,5)
+  val list2: List[Int] = (1 to 10).toList
+  import NumberLikeInterface._
+  import NumberLikeInstances._
+
+  println {
+    mean(list1)
+  }
+
+  println {
+    mean(list2)
+  }
+}
+object TestNumberLikeSyntax extends App {
+  val list1: List[Int] = List(1,2,3,4,5)
+  val list2: List[Int] = (1 to 10).toList
+  import NumberLikeSyntax._
+  import NumberLikeInstances._
+
+  println {
+    list1.mean
+  }
+
+  println {
+    list2.mean
+  }
+}
+
+

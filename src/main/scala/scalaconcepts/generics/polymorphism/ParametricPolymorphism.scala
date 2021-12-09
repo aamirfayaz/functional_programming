@@ -2,7 +2,7 @@
 Parametric polymorphism allows us to reduce boiler-plate by writing code that can work uniformly over a range of types
 by using type parameters. An Array type can work for any type T because its implementation doesn't depend on any
 type-specific behavior - the Array implementation is uniform across all types.
-
+--Java arrays are co-variant
 trait Array {
   def set(index: Int, item: ???): Array
   def get(index: Int): ???

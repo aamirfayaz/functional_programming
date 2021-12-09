@@ -1,22 +1,29 @@
-
-trait Box[-T] {
-
-  def add(t: T):Unit = println()
-  def get[B <: T]:B
+abstract class Food {
+  def name: String
 }
 
+trait Fruit extends Food
 
-trait Combine[+T] {
-  def item: T
-  def combineWith[B >: T](t: B)(implicit n: Numeric[B]):B
+case class Apple(val name: String) extends Fruit
+case class orange(val name: String) extends Fruit
+
+val apple: Apple = Apple("apple")
+val org: orange = orange("Orange")
+
+
+case class Box[+T <: Fruit](f: T) {
+  def fruitList: List[T] = List(f)
+  //def add(i: T): List[T] = i :: fruitList
+  def add[M >: T](i: M): List[M] = i :: fruitList
+
+  /*val a: Box[Apple] = Box(Apple("apple"))
+  val b: Box[Fruit] = a
+  b.add(new)*/
 }
 
-case class CombineInt(x: Int) extends Combine[Int] {
-  def item: Int = x
-  def combineWith[B >: Int](t: B)(implicit n: Numeric[B]):B = item + t
-}
+/*val a: Box[Apple] = Box(Apple("apple"))
+val b: Box[Fruit] = a
+b.add(new Orange)*/
 
-val c1 = CombineInt(10)
-c1.combineWith(20)
-c1.item
+case class FanClub[-T](s: String)
 

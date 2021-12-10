@@ -14,10 +14,10 @@ object ToggleCase extends App {
       if(str.isEmpty) acc else {
         val c = str.charAt(0)
         if(c >= 'a' && c <= 'z') {
-          val uc = 'A' + c - 'a'
+          val uc = 'A' + (c - 'a')
           toggleCase(str.tail, acc + uc.toChar)
         } else if(c >= 'A' && c <= 'Z') {
-          val lc = c + 'a' - 'A'
+          val lc = 'a' + (c - 'A')
           toggleCase(str.tail, acc + lc.toChar)
         } else toggleCase(str.tail, acc + c)
       }

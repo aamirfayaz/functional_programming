@@ -18,6 +18,7 @@ object PalindromicSubStrings extends App {
             }
         }
     }
+
     def isPalindrome(s: String): Boolean = {
         @tailrec
         def rec(s: String, start: Int = 0, end: Int): Boolean = {

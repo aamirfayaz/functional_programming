@@ -11,7 +11,7 @@ object Permutations extends App {
    val f = factorial(l)
 
 
-
+//O(n! * n)
    def permuatations(n: Int, l: Int, acc: List[String] = Nil):List[String] = {
      if(n == f) acc else {
         def inner(index: Int, div: Int, str: String, acc: String = ""):String = {
@@ -21,7 +21,7 @@ object Permutations extends App {
             inner(index - 1, div / index, rest, acc + str.charAt(take).toString)
           }
         }
-       permuatations(n + 1, l,  inner(l, n, inputString):: acc)
+       permuatations(n + 1, l,  inner(l, n, inputString) :: acc)
      }
    }
   val res = permuatations(0, l)

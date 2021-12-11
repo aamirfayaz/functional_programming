@@ -1,3 +1,5 @@
+package utilities
+
 object StringUtilities {
 
     //def isEmpty(s: String): Boolean = Option(s).forall(_.isEmpty)
@@ -10,4 +12,13 @@ object StringUtilities {
        if(isEmpty(s)) None else Some(s)
      }
    }
+
+
+}
+
+object ListUtilities {
+  def getUniquesList:List[Int] = {
+    import util.Random.nextInt
+    LazyList.continually(nextInt(20)).take(15).toSet.toList
+  }
 }

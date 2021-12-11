@@ -1,4 +1,4 @@
-package dsalgo
+package scalaconcepts
 
 object Ordering1 extends App {
   sealed case class A(tag: String, load: Int)

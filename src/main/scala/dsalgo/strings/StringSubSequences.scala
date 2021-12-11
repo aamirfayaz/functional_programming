@@ -1,4 +1,4 @@
-package dsalgo.recursion
+package dsalgo.strings
 
 /*
   for s = abc, n = 3
@@ -9,17 +9,18 @@ package dsalgo.recursion
  */
 object StringSubSequences extends App {
 
-  val s = "abcdef"
+  val s = "abc"
 
-  def subSequences(s: String, acc: List[String]=Nil): List[String] = {
-   if(s.isEmpty) "" :: acc
-   else {
-     val ch = s.charAt(0)
-     val result = subSequences(s.substring(1), acc)
-     val newList = result.map { x =>  ch + x}
-     result ++ newList
-   }
+  def subSequences(s: String, acc: List[String] = Nil): List[String] = {
+    if (s.isEmpty) "" :: acc
+    else {
+      val ch = s.charAt(0)
+      val result = subSequences(s.substring(1), acc)
+      val newList = result.map { x => ch + x }
+      result ++ newList
+    }
   }
+
   val res = subSequences(s)
   println(res)
   println(res.length)

@@ -22,6 +22,8 @@ object MaxElementInList extends App {
   def maxReduce[T](l: List[T])(implicit c: Ordering[T]):T = {
     l.reduce{(a, b) => if(c.gt(a, b)) a else b}
   }
-
   println(maxReduce(l))
+
+  //findMax(Seq(1,2,3,4))
+
 }

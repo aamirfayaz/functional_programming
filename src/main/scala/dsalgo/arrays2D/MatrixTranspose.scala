@@ -46,8 +46,10 @@ object MatrixTranspose extends App {
     List(7, 8, 9),
   )
 
+  MatrixF.display(a)
+  println("--transpose--")
   val res = transpose(a)
 
-  println(res)
+  MatrixF.display(res)
 
 }

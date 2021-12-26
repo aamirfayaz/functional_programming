@@ -63,6 +63,7 @@ object Rotate1_Using_Tail_Rec_Append extends App {
       case _         => rotate(list.tail, k - 1, acc :+ list.head)
     }
   println(rotate(List(1,2,3,4,5), 2))
+
 }
 
 object Rotate2_Using_Drop_Take extends App {

@@ -10,7 +10,7 @@ package dsalgo.strings
  */
 object StringSubSequences extends App {
 
-  val s = "abc"
+  val s = "abcd"
 
   def subSequences(s: String, acc: List[String] = Nil): List[String] = {
     if (s.isEmpty) "" :: acc

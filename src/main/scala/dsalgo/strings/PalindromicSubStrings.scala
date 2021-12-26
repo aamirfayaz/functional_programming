@@ -40,6 +40,7 @@ object PalindromicSubStrings extends App {
     //println(isPalindrome("arora"))
     //println(isPalindrome("madam"))
     //println(isPalindrome("hello"))
-    //printSubStrings("abc")
-    printPalindromicSubStrings("abac")
+    printSubStrings("abc")
+    //printSubStrings("abcd")
+  //  printPalindromicSubStrings("abac")
 }

@@ -6,8 +6,9 @@ object EmptyToUnitFunctions extends App {
   def delayExecution(body: => Unit) = {
     initCode += (() => body)
   }
-  val res:Unit = Thread.sleep(6000)
-  delayExecution(res)
+ // val res:Unit = Thread.sleep(6000)
+  val res = () => Thread.sleep(6000)
+  delayExecution(res())
 
   for (proc <- initCode) proc()
 

@@ -41,3 +41,17 @@ val gF2: Any => Unit = printlnT
 
 val gg: Unit = printlnT("t")
 val gg2: Unit = println("")
+
+val d = () => println("hi")
+
+def m(x: Int)(fn: => Unit) = {
+
+  if(x == 10) fn
+}
+
+m(10)(println("hi"))
+
+def fff(x: Unit) = {
+  x
+}
+fff(println("hi"))

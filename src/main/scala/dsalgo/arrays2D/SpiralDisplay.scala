@@ -1,5 +1,5 @@
 package dsalgo.arrays2D
-
+//TODO: convert to FP code
 object SpiralDisplay extends App {
 
   val rows = 6

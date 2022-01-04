@@ -9,19 +9,18 @@ object MaxElementInList extends App {
   val l = ListUtilities.getUniquesList
   println(l)
 
-  def findMax[T](l: List[T])(implicit c: Ordering[T]):T = l match {
-    case h :: Nil => h
-    case h :: next :: tail => {
-      val m = if(c.gt(h, next)) h else next
-      findMax(m :: tail)
-    }
+  def findMax[T](l: List[T])(implicit c: Ordering[T]): T = l match {
+    case h :: Nil          => h
+    case h :: next :: tail => findMax((if (c.gt(h, next)) h else next) :: tail)
+
   }
 
   println(findMax(l))
 
-  def maxReduce[T](l: List[T])(implicit c: Ordering[T]):T = {
-    l.reduce{(a, b) => if(c.gt(a, b)) a else b}
+  def maxReduce[T](l: List[T])(implicit c: Ordering[T]): T = {
+    l.reduce { (a, b) => if (c.gt(a, b)) a else b }
   }
+
   println(maxReduce(l))
 
   //findMax(Seq(1,2,3,4))

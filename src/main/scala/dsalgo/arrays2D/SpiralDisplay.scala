@@ -4,7 +4,7 @@ object SpiralDisplay extends App {
 
   val rows = 6
   val cols = 6
-  val matrix = MatrixF.apply(rows, cols)((_, _) => scala.io.StdIn.readInt())
+  val matrix = MatrixF.apply(rows, cols)(() => scala.io.StdIn.readInt())
   MatrixF.display(matrix)
   println("-" * 20)
   val totalElements = rows * cols

@@ -28,8 +28,8 @@ object MatrixMultiplication extends App {
            yield (row zip col map Function.tupled(_ * _)).sum
   }
 
-  val a: Matrix = MatrixF(3, 3)((_:Int, _: Int) => scala.io.StdIn.readInt())
-  val b: Matrix = MatrixF(3, 3)((_:Int, _: Int) => scala.io.StdIn.readInt())
+  val a: Matrix = MatrixF(3, 3)(() => scala.io.StdIn.readInt())
+  val b: Matrix = MatrixF(3, 3)(() => scala.io.StdIn.readInt())
 
   println(matrixMultiply(a, b))
 }

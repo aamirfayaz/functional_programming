@@ -7,14 +7,16 @@ object SpiralDisplay extends App {
   val matrix = MatrixF.apply(rows, cols)(() => scala.io.StdIn.readInt())
   MatrixF.display(matrix)
   println("-" * 20)
+
   val totalElements = rows * cols
   var left = 0
   var top = 0
   var bottom = matrix.size - 1
-  var right = matrix.size - 1
+  var right = matrix.head.size - 1
   var count = 0
 
   def loop(): Unit = {
+
      if(count < totalElements) {
        var i = top
        var j = left
@@ -55,4 +57,18 @@ object SpiralDisplay extends App {
      } else return
   }
   loop()
+
+  def spiralString(m: Matrix): String = {
+    val totalElements = m.size * m.head.size //row * col
+    var left = 0
+    var top = 0
+    var bottom = matrix.size - 1
+    var right = matrix.head.size - 1
+     def spiralLoop(acc: String = "", count: Int): String = {
+       if(count >= totalElements) acc else {
+
+       }
+     }
+    spiralLoop()
+  }
 }

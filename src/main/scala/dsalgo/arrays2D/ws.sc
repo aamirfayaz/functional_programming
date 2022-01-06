@@ -1,7 +1,9 @@
-import dsalgo.arrays2D.MatrixF
+val m:List[List[Int]] = List(
+  List(1,2,3,4,5),
+  List(1,2,3,4,5),
+  List(1,2,3,4,5),
+  List(1,2,3,4,5),
+)
 
-import scala.util.Random
-
-List.tabulate(6)(identity)
-val r = List.tabulate(5,4)((x, y) => new Random().nextInt(2))
-MatrixF.display(r)
+m.size
+m.head.size

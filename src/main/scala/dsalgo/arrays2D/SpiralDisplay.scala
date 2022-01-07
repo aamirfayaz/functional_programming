@@ -58,7 +58,7 @@ object SpiralDisplay extends App {
   }
   loop()
 
-  def spiralString(m: Matrix): String = {
+/*  def spiralString(m: Matrix): String = {
     val totalElements = m.size * m.head.size //row * col
     var left = 0
     var top = 0
@@ -70,5 +70,5 @@ object SpiralDisplay extends App {
        }
      }
     spiralLoop()
-  }
+  }*/
 }

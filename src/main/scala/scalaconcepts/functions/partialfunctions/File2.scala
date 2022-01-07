@@ -202,7 +202,7 @@ object AlvinAlexanderExample6 extends App {
 
   //List(2,3,4,0) map divide //scala.MatchError for 0 , collect to rescue
 
-  val result: List[Int] = List(2, 3, 4, 0) collect divide
+  val result: List[Int] = List(2, 3, 4, 0) collect divide // collect is filter+map
   /**
    * collect takes partial function as input
    * collect builds a new collection by applying partial function for all elements of collection for which that partial function is defined

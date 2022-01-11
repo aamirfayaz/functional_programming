@@ -1,0 +1,6 @@
+
+Why there is a function arity limit of 22
+case class limit of 22
+tuple limit of 22
+
+https://stackoverflow.com/questions/4152223/why-are-scala-functions-limited-to-22-parameters

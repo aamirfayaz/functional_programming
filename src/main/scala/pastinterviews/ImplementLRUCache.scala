@@ -18,9 +18,10 @@ deletion and updation , in case of LRU we use Doubly Linkedlist .
 Reason for choosing doubly LinkList is O(1) deletion , updation and insertion
 if we have the address of Node on which this operation has to perform
 
+
  */
 case class Cache[V](key: String, value: V)
-
+//todo: buy from https://www.scala-algorithms.com/ and check FP implementation
 //LRU remove
 
 object LRU {
@@ -59,6 +60,7 @@ class LRU[V] {
   }
 }
 
+case class Employee(id: Int, name: String)
 object LRU_Cache_Test extends App {
 
   val cache: LRU[String] = LRU[String]()
@@ -72,6 +74,14 @@ object LRU_Cache_Test extends App {
   cache.put("4", "Value_1")
   cache.put("9", "Value_1")
   println(cache.list)
+
+  val cache2: LRU[Employee] = LRU[Employee]()
+  cache2.put("1", Employee(1, "abc"))
+  cache2.put("2", Employee(2, "def"))
+  cache2.put("3", Employee(3, "ghi"))
+  cache2.put("4", Employee(4, "ret"))
+  cache2.put("5", Employee(5, "wsx"))
+  println(cache2.list)
 
 
 }

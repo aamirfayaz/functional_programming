@@ -1,12 +1,6 @@
-import scala.collection.mutable
+def m(x: Int, b: Int) = x + b
+//val mff = m(1) _ not allowed
+val mf: Int => Int = m(1, _)
+val gf: (Int, Int) => Int = m _
 
-val m = new mutable.HashMap[String, String]()
-m.put("1", "one")
-m.put("2", "two")
-m.put("3", "three")
-m.put("2", "twoloo")
-m
-m.remove("2")
-m
-m.put("2", "two")
-m
+val l = List.fill(2) _

@@ -1,0 +1,48 @@
+==============the therm "side effect" in functional programming=======================
+All useful functions have effects, like adding two numbers together to get a new number or something like that.
+If they didn't have effects then they would not do anything useful.However a side effect is something that the function
+changes and which is not included in the return values of that function, this makes it a side effect -
+something that changes but is not observed until later, or possibly never. Because these are not included in
+return values, they are not obvious changes and this breaks what's known as "referential transparency",
+which very simply means "if I replaced this function call with just the value it returns and don't do anything else,
+does the program behave identically". If you can answer yes, you have no important side effects, if the answer is no, then the side effects matter.
+
+In the end, any useful program will have some kinds of side effects, like input/output, etc., otherwise the program
+will be useless, but in functional programming we try to keep the side effects to the edges, and write most of the code
+to be free of side effects.
+
+To put it into code, consider this:
+
+class Functional {
+  def addNumbers(a: Int, b: Int): Int = a + b
+}
+this class has an effect, it adds two numbers together, but the result is returned from the function and can be observed.
+No other state is changed, so this code is side-effect free.
+
+Now consider this:
+
+class SideEffecty {
+  private var currResult: Int = 0
+  def addNumbers(a: Int, b: Int): Unit = { currResult = a + b }
+  def currently(): Int = currResult
+}
+
+scala> val sideEffecty = new SideEffecty
+sideEffecty: SideEffecty = SideEffecty@502a4156
+
+scala> sideEffecty.currently()
+res0: Int = 0
+
+scala> sideEffecty.addNumbers(10, 20)
+
+scala> sideEffecty.currently()
+res2: Int = 30
+This code has a side effect of changing an internal variable. There are several indicators:
+
+1. it returns Unit from the addNumbers (functions with side effects often return Unit)
+2. if you replaced the call to sideEffecty.addNumbers with a Unit value in your code, the results would be different
+3. separate calls to currently() can produce different results based on the current state of the instance
+
+side effecting code is harder to reason about and test, often not thread safe
+(imagine several threads updating the state and asking for results at the same time) and is considered non-functional
+ and not ideal for these and other reasons.

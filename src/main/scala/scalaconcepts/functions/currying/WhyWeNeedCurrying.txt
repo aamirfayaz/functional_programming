@@ -1,0 +1,24 @@
+There is a primary reason covered later in the module, namely for better looking syntax for function parameters.
+For example, think about:
+
+def withFileContents[A](file: File, fn: List[String] => A): A = ...
+To use the function as written would take something like:
+val x = withFileContents(theFile, { lines =>
+  val asJson = Json.parse(lines.mkString("\n"))
+  asJson.as[Person]
+})
+
+
+note the embedding of the function into the parameters, and needing to remember the }) at the end.
+Now with currying:
+
+def withFileContents[A](file: File)(fn: List[String] => A): A = ...
+
+val x = withFileContents(theFile) { lines =>
+  val asJson = Json.parse(lines.mkString("\n"))
+  asJson.as[Person]
+}
+
+The result is a more natural looking construct with cleaner syntax and no need to remember closing parens after the function.
+There are other reasons you will discover as you get further into functional programming and partial application of functions,
+but the primary reason is this one, cleaner syntax for the caller.

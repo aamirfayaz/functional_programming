@@ -16,16 +16,17 @@ mul(add(2))
  */
 
 val totalCost = 100
-val applyDiscount = (amount: Double) => {
+val applyDiscount: Double => Double = (amount: Double) => {
   val discount = 20
   amount - discount
 }
 
-val applyTax = (amount: Double) => {
+val applyTax: Double => Double = (amount: Double) => {
   val tax = 4 // fetch tax from database
   amount + tax
 }
 
-applyDiscount(applyTax(totalCost))
+val f: Double = applyDiscount(applyTax(totalCost))
+val g: Double => Double = applyDiscount andThen applyTax
 (applyTax andThen applyDiscount)(totalCost)
 (applyDiscount compose applyTax)(totalCost)

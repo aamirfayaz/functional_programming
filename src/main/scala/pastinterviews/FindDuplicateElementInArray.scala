@@ -6,7 +6,6 @@ package pastinterviews
  */
 
 object FindDuplicateElementInArray extends App {
-
   def duplicate(a: Array[Int]): Int = ???
 }
 /*

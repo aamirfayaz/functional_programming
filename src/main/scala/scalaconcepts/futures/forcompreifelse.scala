@@ -1,0 +1,3 @@
+object fortest extends App {
+
+}

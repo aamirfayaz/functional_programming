@@ -13,6 +13,7 @@ val g: Double = GfG(391)
 
   // unapply method is called
   case GfG(y) => println("The value is: " + y)
+  //y is value returned from unapply not g
   case _      => println("Can't be evaluated")
 
 }

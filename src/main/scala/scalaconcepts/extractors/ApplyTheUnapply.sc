@@ -63,7 +63,7 @@ object DateTimeSeq {
 }
 
 val DateTimeSeq(y, m, d, h, mi, sec) = LocalDateTime.now()
-val DateTimeSeq(y, m, d, h, _*) = LocalDateTime.now()
+val DateTimeSeq(y, m, d, h, rest@_*) = LocalDateTime.now()
 
 object AM {
   def unapply(t: LocalTime): Option[(Int, Int, Int)] = t match {

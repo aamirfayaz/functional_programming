@@ -10,7 +10,7 @@ val g: Double = GfG(391)
 
 // Applying pattern matching
  g match {
-
+//unapply method takes g
   // unapply method is called
   case GfG(y) => println("The value is: " + y)
   //y is value returned from unapply not g

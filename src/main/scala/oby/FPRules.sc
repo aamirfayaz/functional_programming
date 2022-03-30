@@ -24,12 +24,77 @@
  * Uses of FP style:
  * 1.) Easy Debugging
  */
-val x = 33
-val res = x + 1
+
+//expression
+
+
+
+
+
+val xx = {
+  ""
+}
+
+/**
+   x,y are parameters
+ Int is called type here
+ so x is can say is parametric type
+ */
+def add(x: Int, y: Int) = x + y
+def add2(x: Int, y: Int) = {
+  x + y
+}
+
+add(1,2) //1, 2 arguments
+
+/////
+
 var n = 2
 val b = true
 
-if(b) {
-  n = 3
-} else n = 4
-n
+//
+val result: Unit = if(b) {
+  n = 3 // this is a side effect
+} else {
+  n = 4
+}
+
+val result2: String = if(!b) {
+  "b is not true"
+} else {
+  "b is false"
+}
+
+def abc1(x:Int, y: Int): Unit = {
+  val z = x + y // this is a side effect
+}
+def abc2(x:Int, y: Int): Int = {
+  val z = x + y
+  z
+}
+//last statement of method is its return type
+def abc3(x:Int, y: Int): Int = {
+ x + y
+
+}
+
+/**
+ * What is side-effecting?
+ * People say side-effecting is bad in FP languages
+ */
+
+val x: Unit = println("some print")
+//println is a statement
+var x = 19
+x = 20 // assignment has a return type of Unit, means it is a statement, means its a side effect
+x
+val z = x = 30
+x
+
+val x: Unit = ()
+
+def m1() = {
+  val xx = 20
+}
+
+val returnVlaue = m1()

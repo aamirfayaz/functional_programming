@@ -1,4 +1,8 @@
-val f:(=> String) => String = s => s + s // compiles
+val f:(=> String) => String = s => {
+  println("Delaying execution...")
+  Thread.sleep(3000)
+  s + s
+} // compiles
 //val f:(=> String) => String = (s: => String) => s +s // does not compile
 
 f("Abc")

@@ -1,0 +1,4 @@
+Much shorter code, easier to read and understand
+Much more productivity for us as developers
+Much fewer bugs in general, because of the safety and guardrails of FP and the strong type system enforced by the compiler
+Particularly suitable for parallel/distributed applications

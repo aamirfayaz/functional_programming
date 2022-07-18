@@ -23,6 +23,10 @@
      type; also we can use implicit object that extends Type Class and overrideds its methods inside.
      2. by defining implicit methods to construct instances from other type
      class instances;
+     
+ --> The Scala language constructs that correspond to the componenets of type class are:
+     trait (type class definition), implicit vals, implicit objects, implicit methods (type class instances),
+     singleton objects, classes(as type class usages or interfaces) 
 
  --> Working with type classes in Scala means working with implicit values and implicit parameters
 

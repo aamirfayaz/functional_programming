@@ -20,7 +20,7 @@
 
  --> We can define instances in two ways:
      1. by defining concrete instances as implicit vals of the required
-     type;
+     type; also we can use implicit object that extends Type Class and overrideds its methods inside.
      2. by defining implicit methods to construct instances from other type
      class instances;
 

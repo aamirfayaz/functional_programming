@@ -1,0 +1,3 @@
+--> why postgres is better than sql, how is postgresql able to handle more connections concurrently?
+--> how to implement your own Map?
+--> what is good for concurrency, val or lazy val?
